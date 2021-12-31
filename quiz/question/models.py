@@ -7,7 +7,6 @@ class QuestionTopic(models.Model):
     """
     topics for questions
     """
-
     topic = models.CharField(max_length=255, unique=True)
     slug = models.SlugField(blank=True)
     description = models.TextField(blank=True)
