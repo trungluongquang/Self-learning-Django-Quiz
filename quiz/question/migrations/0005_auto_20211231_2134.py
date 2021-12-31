@@ -15,10 +15,5 @@ class Migration(migrations.Migration):
             model_name='questiontopic',
             name='slug',
             field=models.SlugField(blank=True),
-        ),
-        migrations.AlterField(
-            model_name='questiontopic',
-            name='topic',
-            field=models.CharField(max_length=255, validators=[question.models.validate_topic_name]),
-        ),
+        )
     ]

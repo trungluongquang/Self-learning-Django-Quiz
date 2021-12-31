@@ -9,11 +9,3 @@ class Migration(migrations.Migration):
     dependencies = [
         ('question', '0003_auto_20211231_2122'),
     ]
-
-    operations = [
-        migrations.AlterField(
-            model_name='questiontopic',
-            name='slug',
-            field=models.SlugField(blank=True, validators=[question.models.validate_topic_name]),
-        ),
-    ]
