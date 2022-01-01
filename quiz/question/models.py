@@ -20,13 +20,8 @@ class QuestionTopic(models.Model):
             self.slug = generate_slug(input_text=self.topic, filter_obj=QuestionTopic)
         super(QuestionTopic, self).save(*args, **kwargs)
 
-
-def _get_topic_choices():
-    result = list()
-    topics = QuestionTopic.objects.all()
-    for topic in topics:
-        result.append((topic.topic, topic.topic))
-    return tuple(result)
+    def __str__(self):
+        return self.topic
 
 
 class Question(models.Model):
@@ -34,14 +29,14 @@ class Question(models.Model):
     questions
     """
     question = models.TextField()
-    topic = models.CharField(max_length=255, choices=_get_topic_choices(), default='Allgemein')
-    slug = models.SlugField(blank=True)
+    topic = models.ForeignKey(QuestionTopic, on_delete=models.PROTECT, default='Allgemein')
+    slug = models.SlugField(blank=True, max_length=255)
     correct_answer = models.CharField(max_length=255)
     wrong_answer_1 = models.CharField(max_length=255)
     wrong_answer_2 = models.CharField(max_length=255, blank=True, null=True)
     wrong_answer_3 = models.CharField(max_length=255, blank=True, null=True)
     explanation = models.TextField(blank=True)
-    explanation_source = models.TextField(blank=True)
+    explanation_source = models.URLField(blank=True)
     note = models.TextField(blank=True)
     image = models.ImageField(upload_to='question_image/', blank=True)
 
@@ -62,4 +57,7 @@ class Question(models.Model):
     @property
     def short_explanation(self):
         return truncatechars(self.explanation, 100)
+
+    def __str__(self):
+        return self.slug
 
