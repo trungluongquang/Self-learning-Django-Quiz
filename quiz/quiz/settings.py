@@ -40,7 +40,8 @@ INSTALLED_APPS = [
 
     #own
     'question',
-    'quiz_game'
+    'quiz_game',
+    'homepage'
 ]
 
 MIDDLEWARE = [
